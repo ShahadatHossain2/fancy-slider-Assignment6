@@ -129,3 +129,9 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+document.getElementById('search').addEventListener('keypress', function(event){
+  if(event.keyCode===13) {
+    searchBtn.click();
+  }
+})
