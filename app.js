@@ -15,18 +15,30 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  imagesArea.style.display = 'block';
-  gallery.innerHTML = '';
-  // show gallery title
-  galleryHeader.style.display = 'flex';
+  const errorDiv = document.getElementById('message');
+  if(images.length === 0) {
+    document.getElementById('imgContainer').style.display = "none";
+    errorDiv.innerHTML = "<h1>Sorry! no match found.</h1>"
+    errorDiv.style.fontSize = "40px";
+    errorDiv.style.color = "red";
+    errorDiv.style.textAlign = "center";
+  }
+  else{
+    imagesArea.style.display = 'block';
+    document.getElementById('imgContainer').style.display = "block";
+    errorDiv.innerHTML = "";
+    gallery.innerHTML = '';
+    // show gallery title
+    galleryHeader.style.display = 'flex';
+    
+    images.forEach(image => {
+      let div = document.createElement('div');
+      div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
+      div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+      gallery.appendChild(div)
+    })
   
-  images.forEach(image => {
-    let div = document.createElement('div');
-    div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)
-  })
-
+  }
 }
 
 const getImages = (query) => {
